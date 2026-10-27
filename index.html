@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>⛰️ Rumo ao Cume · Revisão Geografia 7º ano</title>
+<style>
+:root{--fundo:#14171a;--fundo2:#1c2125;--cartao:#232a2f;--borda:#34404a;--musgo:#6b8f4e;--musgo2:#94c06e;
+--sinal:#ffd23f;--neve:#eef3f0;--texto:#dfe6e2;--suave:#a8b5ae;--alerta:#ff6b5b;--certo:#3ddc84;--cinza:#58636b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fundo);color:var(--texto);font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:18px;line-height:1.6}
+h1,h2,h3{font-family:"Trebuchet MS","Segoe UI",sans-serif;color:var(--neve);line-height:1.25}
+a{color:var(--sinal)}
+.topo{background:linear-gradient(180deg,#0e1114 0%,#1b2420 100%);border-bottom:4px solid var(--musgo);padding:18px 16px 8px;text-align:center}
+.topo .selo{display:inline-block;background:var(--musgo);color:#0e1114;font-weight:700;border-radius:999px;padding:3px 14px;font-size:.85rem;letter-spacing:.5px}
+.topo h1{margin:.35em 0 .1em;font-size:1.9rem}
+.topo p{margin:.2em 0;color:var(--suave)}
+.montanha{width:100%;max-width:760px;height:auto;display:block;margin:6px auto 0}
+.miolo{max-width:880px;margin:0 auto;padding:16px}
+.painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:var(--fundo2);border:1px solid var(--borda);border-radius:12px;padding:10px 12px;margin:12px 0;font-size:.9rem;color:var(--suave)}
+.painel .bts{display:flex;gap:6px;flex-wrap:wrap}
+button,.botao{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--borda);background:var(--cartao);color:var(--neve);padding:8px 14px}
+button:hover{filter:brightness(1.15)}
+button:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.bt-forte{background:var(--sinal);color:#14171a;border-color:var(--sinal);font-weight:700}
+.bt-musgo{background:var(--musgo);border-color:var(--musgo);color:#0e1114;font-weight:700}
+.bt-pequeno{font-size:.85rem;padding:5px 10px}
+.cartao{background:var(--cartao);border:1px solid var(--borda);border-radius:14px;padding:16px 18px;margin:14px 0}
+.caixa-dica{background:#2a2a17;border-left:6px solid var(--sinal);border-radius:10px;padding:12px 14px;margin:12px 0}
+.caixa-alerta{background:#2e1c1b;border-left:6px solid var(--alerta);border-radius:10px;padding:12px 14px;margin:12px 0}
+.caixa-ok{background:#16291e;border-left:6px solid var(--certo);border-radius:10px;padding:12px 14px;margin:12px 0}
+.modal-fundo{position:fixed;inset:0;background:rgba(5,8,10,.82);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-fundo.on{display:flex}
+.modal{background:var(--fundo2);border:2px solid var(--sinal);border-radius:16px;max-width:520px;width:100%;padding:20px;text-align:center}
+.modal h3{margin-top:0}
+.modal .bts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--musgo);color:#0e1114;font-weight:700;padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;z-index:60;pointer-events:none}
+.toast.on{opacity:1}
+.rodape{text-align:center;color:var(--suave);font-size:.85rem;padding:24px 12px 40px}
+code,.formula{background:#11161a;border:1px solid var(--borda);border-radius:8px;padding:2px 8px;font-family:Consolas,"Courier New",monospace;color:var(--sinal)}
+.formula{display:block;padding:8px 12px;margin:8px 0;text-align:center;font-size:1.05rem}
+@media (max-width:600px){body{font-size:17px}.topo h1{font-size:1.5rem}}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0}
+.card{position:relative;display:block;text-decoration:none;color:var(--texto);background:var(--cartao);border:2px solid var(--borda);border-radius:16px;padding:16px}
+.card h3{margin:.2em 0}
+.card .passo{font-size:.8rem;font-weight:800;color:var(--sinal);letter-spacing:.5px}
+.card .st{margin-top:8px;font-size:.92rem;font-weight:600}
+.card.aberto{border-color:var(--musgo)}
+.card.trancado{filter:grayscale(1);opacity:.6;cursor:not-allowed}
+.card.novo{border-color:var(--sinal);animation:brilho 1.6s ease-in-out 3}
+@keyframes brilho{0%,100%{box-shadow:0 0 0 rgba(255,210,63,0)}50%{box-shadow:0 0 22px rgba(255,210,63,.7)}}
+.badge{position:absolute;top:10px;right:10px;font-size:.78rem;font-weight:800;border-radius:999px;padding:2px 10px}
+.badge.ok{background:var(--certo);color:#0e1114}.badge.novo{background:var(--sinal);color:#0e1114}.badge.lock{background:var(--cinza);color:#fff}
+.selo-pais{display:none;background:#2c2b18;border:1px solid var(--sinal);border-radius:10px;padding:8px 12px;margin:10px 0}
+.rel{display:none}
+.tab{width:100%;border-collapse:collapse;margin:8px 0}
+.tab td,.tab th{border-bottom:1px solid var(--borda);padding:6px 8px;text-align:left;vertical-align:top}
+input.campo{font:inherit;padding:8px 12px;border-radius:10px;border:1px solid var(--borda);background:#11161a;color:var(--neve);text-transform:uppercase;width:11em;text-align:center}
+</style></head><body>
+<header class="topo"><span class="selo">RUMO AO CUME · GEOGRAFIA · 7º ANO</span>
+<h1>⛰️ Base da Montanha</h1><p>Revisão das 3 últimas provas de Geografia para o simulado trimestral</p>
+<svg class="montanha" viewBox="0 0 760 300" role="img" aria-label="Montanha com a trilha dos acampamentos até o cume">
+<polygon points="0,300 230,150 330,205 520,40 600,70 760,300" fill="#26302a"/>
+<polygon points="520,40 560,58 545,75 522,62 500,72 488,62" fill="#eef3f0" opacity=".9"/>
+<polygon points="0,300 140,215 260,300" fill="#1f2823"/>
+<path d="M40,290 C90,270 100,255 110,250 S220,215 270,200 S380,170 420,150 S520,110 560,95 S590,62 600,48" fill="none" stroke="#ffd23f" stroke-width="3" stroke-dasharray="7 7" opacity=".85"/>
+<g class="acamp" id="montanha-a0"><circle cx="110" cy="250" r="17" fill="#1c2125" stroke="#6fcf7a" stroke-width="3"/><text x="110" y="256" text-anchor="middle" font-size="17">⛺</text><text x="110" y="286" text-anchor="middle" font-size="13" fill="#6fcf7a" font-family="Trebuchet MS">Acamp. 1</text></g><g class="acamp" id="montanha-a1"><circle cx="270" cy="200" r="17" fill="#1c2125" stroke="#f4a259" stroke-width="3"/><text x="270" y="206" text-anchor="middle" font-size="17">⛺</text><text x="270" y="236" text-anchor="middle" font-size="13" fill="#f4a259" font-family="Trebuchet MS">Acamp. 2</text></g><g class="acamp" id="montanha-a2"><circle cx="420" cy="150" r="17" fill="#1c2125" stroke="#5bc0eb" stroke-width="3"/><text x="420" y="156" text-anchor="middle" font-size="17">⛺</text><text x="420" y="186" text-anchor="middle" font-size="13" fill="#5bc0eb" font-family="Trebuchet MS">Acamp. 3</text></g>
+<g id="montanha-cume"><text x="606" y="40" font-size="30">🚩</text><text x="650" y="62" font-size="14" fill="#ffd23f" font-family="Trebuchet MS">Cume = Simulado</text></g>
+</svg></header>
+<main class="miolo">
+<div class="selo-pais" id="seloPais"><span id="seloPaisTxt"></span></div>
+<div class="cards">
+<a class="card aberto" id="cardR" href="resumo.html"><span class="badge"></span><span class="passo">ETAPA 1</span><h3>🗺️ Caderno da Trilha</h3><p>Resumo interativo das 3 provas: regras, cartões, dicas, pegadinhas e um teste rápido em cada acampamento.</p><div class="st"></div></a>
+<a class="card trancado" id="cardS"><span class="badge"></span><span class="passo">ETAPA 2</span><h3>🏔️ Ataque ao Cume</h3><p>Simulado com 40 questões de múltipla escolha, misturando as 3 provas, com código e gabarito comentado.</p><div class="st"></div></a>
+</div>
+<div class="cartao"><h3 style="margin-top:0">🥾 Como usar</h3><ol>
+<li>Os materiais abrem um por vez, na ordem. Conclua um para destravar o próximo.</li>
+<li>Comece pelo <b>Caderno da Trilha</b>. Leia acampamento por acampamento e faça o teste de cada um.</li>
+<li>No fim do caderno, clique em <b>“✅ Li o resumo até o fim”</b>. Isso destrava o simulado.</li>
+<li>Faça o <b>Ataque ao Cume</b> como se fosse o dia do simulado: sem consultar, com papel para as contas.</li>
+<li>Envie, mostre o código para um adulto e estude o gabarito comentado, principalmente as que errou.</li></ol></div>
+<div class="cartao"><h3 style="margin-top:0">🗺️ O que esta revisão cobre</h3><ul style="list-style:none;padding-left:0"><li style="border-left:5px solid #6fcf7a;padding-left:8px;margin:6px 0"><b>Acampamento 1 · Prova de 11/06</b> — Cap. 6 — Domínios morfoclimáticos · Cap. 7 — Regiões do IBGE</li><li style="border-left:5px solid #f4a259;padding-left:8px;margin:6px 0"><b>Acampamento 2 · Prova de 09/07</b> — Cap. 8 — Regiões geoeconômicas + texto complementar Os Quatro Brasis</li><li style="border-left:5px solid #5bc0eb;padding-left:8px;margin:6px 0"><b>Acampamento 3 · Prova dos cap. 13 a 15</b> — Cap. 13 a 15 — População, estrutura etária e trabalho</li></ul></div>
+<div class="cartao"><h3 style="margin-top:0">👨‍👩‍👧 Dica para os pais</h3>
+<p>Ao enviar o simulado, aparece um código <b>SIM-XX-YY</b> (XX = número de acertos). O gabarito só abre com esse código. O código da família <b>PAIS-77</b> também abre o gabarito e o relatório abaixo.</p>
+<p>O relatório mostra o resultado <b>por prova</b>: o que ficar abaixo de 70% é o ponto para reforçar antes do simulado.</p>
+<p>O progresso fica salvo no navegador deste aparelho. Se trocar de aparelho, use “📥 Exportar tudo” aqui e “📤 Importar tudo” no outro, ou libere a trilha com o PAIS-77.</p></div>
+<div class="cartao"><h3 style="margin-top:0">📊 Relatório para os pais</h3>
+<p>Digite o código do simulado (SIM-…) ou o código da família:</p>
+<input class="campo" id="codPais" placeholder="PAIS-77"> <button class="bt-forte" onclick="relatorio()">Abrir relatório</button>
+<div class="rel" id="rel"></div></div>
+<div class="painel"><span>💾 Progresso do kit inteiro</span><span class="bts"><button class="bt-pequeno" onclick="exportarTudo()">📥 Exportar tudo</button><button class="bt-pequeno" onclick="importarTudo()">📤 Importar tudo</button><button class="bt-pequeno" onclick="zerarTudo()">🗑️ Zerar tudo</button></span></div>
+</main>
+<div class="rodape">Rumo ao Cume · Revisão para o simulado trimestral · feito para o jovem aprendiz</div>
+<div class="modal-fundo" id="modalFundo"><div class="modal"><h3 id="modalTit"></h3><div id="modalTxt"></div><div class="bts" id="modalBts"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+var MEM = {};
+function lerChave(k){ try{ var v = localStorage.getItem(k); if(v!==null) return JSON.parse(v); }catch(e){}
+  if(MEM[k]) { try{ return JSON.parse(MEM[k]); }catch(e){} } return null; }
+function gravarChave(k,obj){ var t = JSON.stringify(obj); MEM[k]=t; try{ localStorage.setItem(k,t); }catch(e){} }
+function apagarChave(k){ delete MEM[k]; try{ localStorage.removeItem(k); }catch(e){} }
+function dataBR(iso){ if(!iso) return '—'; var d=new Date(iso); function z(n){return (n<10?'0':'')+n;}
+  return z(d.getDate())+'/'+z(d.getMonth()+1)+'/'+d.getFullYear()+' às '+z(d.getHours())+':'+z(d.getMinutes()); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function modal(titulo, html, botoes){
+  var f=document.getElementById('modalFundo');
+  document.getElementById('modalTit').innerHTML=titulo; document.getElementById('modalTxt').innerHTML=html;
+  var b=document.getElementById('modalBts'); b.innerHTML='';
+  (botoes||[{t:'Entendi',c:'bt-forte'}]).forEach(function(bt){ var e=document.createElement('button'); e.textContent=bt.t; e.className=bt.c||'';
+    e.onclick=function(){ if(!bt.manter) f.classList.remove('on'); if(bt.f) bt.f(); }; b.appendChild(e); });
+  f.classList.add('on');
+}
+function toast(t){ var e=document.getElementById('toast'); e.textContent=t; e.classList.add('on'); setTimeout(function(){e.classList.remove('on');},2200); }
+function baixarJSON(nome,obj){ try{ var blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}); var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=nome; document.body.appendChild(a); a.click(); a.remove(); toast('📥 Arquivo baixado'); }catch(e){ modal('Ops','Não consegui baixar o arquivo neste aparelho.'); } }
+function abrirArquivo(cb){ var i=document.createElement('input'); i.type='file'; i.accept='.json,application/json';
+  i.onchange=function(){ var f=i.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ try{ cb(JSON.parse(r.result)); }catch(e){ modal('Ops','Esse arquivo não parece ser um progresso salvo deste kit.'); } }; r.readAsText(f); };
+  i.click(); }
+
+var D = {"slug": "revisao_edros_geografia_7ano", "nq": 40, "ac": [{"curto": "Domínios e regiões do IBGE", "nmini": 3}, {"curto": "Complexos regionais", "nmini": 3}, {"curto": "População e trabalho", "nmini": 3}]};
+var CHR=D.slug+'_resumo_v1', CHS=D.slug+'_simulado_v1', CHT=D.slug+'_trilha_v1';
+function estados(){ return {r:lerChave(CHR)||{}, s:lerChave(CHS)||{}, t:lerChave(CHT)||{}}; }
+function desenhar(){
+  var x=estados(), r=x.r, s=x.s, t=x.t;
+  var cr=document.getElementById('cardR'), cs=document.getElementById('cardS');
+  var simAberto = r.concluido || t.liberadoPelosPais || s.concluido;
+  cr.className='card aberto'; cr.querySelector('.badge').outerHTML = r.concluido ? '<span class="badge ok">✅ Concluído</span>' : '<span class="badge novo">▶ Comece aqui</span>';
+  cr.querySelector('.st').textContent = r.concluido ? 'Concluído em '+dataBR(r.concluidoEm)+'. Pode revisar quando quiser.' : 'Você já leu '+(r.rolagemMax||0)+'% do caderno.';
+  if(!simAberto){ cs.className='card trancado'; cs.removeAttribute('href'); cs.onclick=function(e){ e.preventDefault(); modal('🔒 Ainda trancado','Destrava quando você concluir o Caderno da Trilha: ler até o fim e clicar em “✅ Li o resumo até o fim” (você já leu '+(r.rolagemMax||0)+'%).'); };
+    cs.querySelector('.badge').outerHTML='<span class="badge lock">🔒 Trancado</span>';
+    cs.querySelector('.st').textContent='🔒 Destrava quando você concluir o Caderno da Trilha (lido: '+(r.rolagemMax||0)+'%).'; }
+  else { cs.setAttribute('href','simulado.html'); cs.onclick=null;
+    if(s.concluido){ cs.className='card aberto'; cs.querySelector('.badge').outerHTML='<span class="badge ok">✅ Concluído</span>'; cs.querySelector('.st').textContent='Enviado em '+dataBR(s.enviadoEm)+'. Código: '+s.codigo; }
+    else { cs.className='card novo'; cs.querySelector('.badge').outerHTML='<span class="badge novo">✨ Novo destravado</span>'; cs.querySelector('.st').textContent='Respondidas: '+Object.keys(s.resp||{}).length+' de '+D.nq+'.'; } }
+  document.getElementById('seloPais').style.display = t.liberadoPelosPais ? 'block' : 'none';
+  if(t.liberadoPelosPais) document.getElementById('seloPaisTxt').textContent='🔓 Trilha liberada pelos pais em '+dataBR(t.liberadoEm)+'.';
+}
+function relatorio(){
+  var v=(document.getElementById('codPais').value||'').trim().toUpperCase(), x=estados();
+  if(!(v==='PAIS-77' || (x.s.codigo && v===x.s.codigo))){ modal('Código não confere','Use o código do simulado (SIM-…) ou o código da família.'); return; }
+  var r=x.r, s=x.s, t=x.t, h='';
+  h+='<h3>🛤️ Trilha</h3><table class="tab"><tr><td>🗺️ Caderno da Trilha (Resumo)</td><td>'+(r.concluido?'✅ concluído em '+dataBR(r.concluidoEm):'⏳ não concluído')+'</td></tr>';
+  h+='<tr><td>🏔️ Ataque ao Cume (Simulado)</td><td>'+(s.concluido?'✅ enviado em '+dataBR(s.enviadoEm):'⏳ não enviado')+'</td></tr>';
+  h+='<tr><td>🔓 Liberação pelos pais</td><td>'+(t.liberadoPelosPais?'sim, em '+dataBR(t.liberadoEm):(t.trancadoEm?'trancada de novo em '+dataBR(t.trancadoEm):'não usada'))+'</td></tr></table>';
+  h+='<h3>🗺️ Caderno da Trilha</h3><p>Rolagem máxima do resumo: <b>'+(r.rolagemMax||0)+'%</b></p><table class="tab"><tr><th>Acampamento</th><th>Revisado</th><th>Teste do acampamento (acertos de primeira)</th></tr>';
+  D.ac.forEach(function(a,i){ var ok=0,tot=a.nmini,feitas=0; for(var j=0;j<tot;j++){ var m=(r.mini||{})['a'+i+'q'+j]; if(m&&m.certo) feitas++; if(m&&m.primeira) ok++; }
+    h+='<tr><td>⛺ '+(i+1)+'. '+a.curto+'</td><td>'+((r.revisado||{})[i]?'✅':'—')+'</td><td>'+ok+' de '+tot+' de primeira ('+feitas+' resolvidas)</td></tr>'; });
+  h+='</table><h3>🏔️ Ataque ao Cume</h3>';
+  if(s.enviado){ var pct=Math.round(s.acertos/D.nq*100); h+='<p><b>'+s.acertos+' de '+D.nq+' acertos ('+pct+'%)</b> · código '+s.codigo+'</p><table class="tab"><tr><th>Acampamento (prova)</th><th>Acertos</th></tr>';
+    var reforco=[]; D.ac.forEach(function(a,i){ var p=s.porAcamp[i]; var x2=Math.round(p.ok/p.total*100); if(x2<70) reforco.push(a.curto); h+='<tr><td>⛺ '+(i+1)+'. '+a.curto+'</td><td>'+p.ok+' de '+p.total+' ('+x2+'%)</td></tr>'; });
+    h+='</table>'+(reforco.length?'<div class="caixa-alerta">🔁 <b>Reforçar antes do simulado:</b> '+reforco.join(' · ')+'</div>':'<div class="caixa-ok">✅ Todos os acampamentos com 70% ou mais.</div>');
+  } else h+='<p>Simulado ainda não enviado.</p>';
+  if(v==='PAIS-77'){ h+='<div class="cartao"><b>Chave dos pais</b><p class="suave">Libere a trilha se a criança estudou de outro jeito ou trocou de aparelho.</p>'+(t.liberadoPelosPais?'<button onclick="trancar()">🔒 Trancar de novo</button>':'<button class="bt-forte" onclick="liberarTrilha()">🔓 Liberar todos os materiais</button>')+'</div>'; }
+  var el=document.getElementById('rel'); el.innerHTML=h; el.style.display='block';
+}
+function liberarTrilha(){ var t=lerChave(CHT)||{}; t.liberadoPelosPais=true; t.liberadoEm=new Date().toISOString(); gravarChave(CHT,t); desenhar(); relatorio(); toast('🔓 Trilha liberada'); }
+function trancar(){ var t=lerChave(CHT)||{}; t.liberadoPelosPais=false; t.trancadoEm=new Date().toISOString(); gravarChave(CHT,t); desenhar(); relatorio(); toast('🔒 Trilha trancada de novo'); }
+function exportarTudo(){ var x=estados(); baixarJSON(D.slug+'_progresso_completo.json',{kit:D.slug,exportadoEm:new Date().toISOString(),resumo:x.r,simulado:x.s,trilha:x.t}); }
+function importarTudo(){ abrirArquivo(function(o){ if(!o||o.kit!==D.slug){ modal('Ops','Esse arquivo não é deste kit. Use o arquivo baixado no “📥 Exportar tudo” desta página.'); return; }
+  if(o.resumo) gravarChave(CHR,o.resumo); if(o.simulado) gravarChave(CHS,o.simulado); if(o.trilha) gravarChave(CHT,o.trilha); desenhar(); toast('📤 Progresso importado'); }); }
+function zerarTudo(){ modal('Zerar o kit inteiro?','Apaga TODO o progresso: resumo, simulado (inclusive o código) e a trilha volta a ficar trancada.',[{t:'Cancelar'},{t:'Sim, zerar tudo',c:'bt-forte',f:function(){ apagarChave(CHR); apagarChave(CHS); apagarChave(CHT); desenhar(); document.getElementById('rel').style.display='none'; toast('🗑️ Kit zerado'); }}]); }
+desenhar();
+</script></body></html>

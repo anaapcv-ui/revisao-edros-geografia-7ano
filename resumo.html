@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🗺️ Caderno da Trilha · Geografia 7º ano · Rumo ao Cume</title>
+<style>
+:root{--fundo:#14171a;--fundo2:#1c2125;--cartao:#232a2f;--borda:#34404a;--musgo:#6b8f4e;--musgo2:#94c06e;
+--sinal:#ffd23f;--neve:#eef3f0;--texto:#dfe6e2;--suave:#a8b5ae;--alerta:#ff6b5b;--certo:#3ddc84;--cinza:#58636b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fundo);color:var(--texto);font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:18px;line-height:1.6}
+h1,h2,h3{font-family:"Trebuchet MS","Segoe UI",sans-serif;color:var(--neve);line-height:1.25}
+a{color:var(--sinal)}
+.topo{background:linear-gradient(180deg,#0e1114 0%,#1b2420 100%);border-bottom:4px solid var(--musgo);padding:18px 16px 8px;text-align:center}
+.topo .selo{display:inline-block;background:var(--musgo);color:#0e1114;font-weight:700;border-radius:999px;padding:3px 14px;font-size:.85rem;letter-spacing:.5px}
+.topo h1{margin:.35em 0 .1em;font-size:1.9rem}
+.topo p{margin:.2em 0;color:var(--suave)}
+.montanha{width:100%;max-width:760px;height:auto;display:block;margin:6px auto 0}
+.miolo{max-width:880px;margin:0 auto;padding:16px}
+.painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:var(--fundo2);border:1px solid var(--borda);border-radius:12px;padding:10px 12px;margin:12px 0;font-size:.9rem;color:var(--suave)}
+.painel .bts{display:flex;gap:6px;flex-wrap:wrap}
+button,.botao{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--borda);background:var(--cartao);color:var(--neve);padding:8px 14px}
+button:hover{filter:brightness(1.15)}
+button:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.bt-forte{background:var(--sinal);color:#14171a;border-color:var(--sinal);font-weight:700}
+.bt-musgo{background:var(--musgo);border-color:var(--musgo);color:#0e1114;font-weight:700}
+.bt-pequeno{font-size:.85rem;padding:5px 10px}
+.cartao{background:var(--cartao);border:1px solid var(--borda);border-radius:14px;padding:16px 18px;margin:14px 0}
+.caixa-dica{background:#2a2a17;border-left:6px solid var(--sinal);border-radius:10px;padding:12px 14px;margin:12px 0}
+.caixa-alerta{background:#2e1c1b;border-left:6px solid var(--alerta);border-radius:10px;padding:12px 14px;margin:12px 0}
+.caixa-ok{background:#16291e;border-left:6px solid var(--certo);border-radius:10px;padding:12px 14px;margin:12px 0}
+.modal-fundo{position:fixed;inset:0;background:rgba(5,8,10,.82);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-fundo.on{display:flex}
+.modal{background:var(--fundo2);border:2px solid var(--sinal);border-radius:16px;max-width:520px;width:100%;padding:20px;text-align:center}
+.modal h3{margin-top:0}
+.modal .bts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--musgo);color:#0e1114;font-weight:700;padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;z-index:60;pointer-events:none}
+.toast.on{opacity:1}
+.rodape{text-align:center;color:var(--suave);font-size:.85rem;padding:24px 12px 40px}
+code,.formula{background:#11161a;border:1px solid var(--borda);border-radius:8px;padding:2px 8px;font-family:Consolas,"Courier New",monospace;color:var(--sinal)}
+.formula{display:block;padding:8px 12px;margin:8px 0;text-align:center;font-size:1.05rem}
+@media (max-width:600px){body{font-size:17px}.topo h1{font-size:1.5rem}}
+
+.menu-ac{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.menu-ac a{flex:1 1 180px;text-decoration:none;color:var(--neve);background:var(--cartao);border:1px solid var(--borda);border-left:6px solid var(--cor);border-radius:10px;padding:8px 10px;font-size:.92rem}
+.acampamento{border:1px solid var(--borda);border-radius:16px;margin:26px 0;overflow:hidden;background:var(--fundo2)}
+.ac-cabeca{background:linear-gradient(90deg,var(--cor) 0%,rgba(0,0,0,0) 120%);padding:14px 18px;color:#0e1114}
+.ac-cabeca h2{margin:.15em 0;color:#0e1114;font-size:1.5rem}
+.ac-num{font-weight:800;font-size:.9rem;letter-spacing:.5px;background:#0e1114;color:var(--cor);border-radius:999px;padding:2px 10px}
+.ac-prova{margin:0;font-weight:600;color:#0e1114}
+.ac-corpo{padding:6px 18px 18px}
+.ac-intro{color:var(--suave);font-style:italic}
+.regras{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:12px 0}
+.regra{background:var(--cartao);border:1px solid var(--borda);border-top:4px solid var(--cor);border-radius:12px;padding:10px 14px}
+.regra h4{margin:.2em 0 .4em;color:var(--cor);font-size:1.05rem}
+.regra p{margin:.35em 0}
+.regra ul{margin:.3em 0;padding-left:20px}
+.flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.flip{min-height:110px;text-align:center;border:2px dashed var(--cor);background:var(--cartao);border-radius:12px;padding:10px;color:var(--neve);font-size:1rem}
+.flip .vs{display:none;color:var(--sinal);font-weight:600}
+.flip.virado{border-style:solid;background:#11161a}
+.flip.virado .fr{display:none}.flip.virado .vs{display:block}
+.flip small{display:block;color:var(--suave);font-size:.75rem;margin-top:6px}
+.suave{color:var(--suave);font-size:.9rem;margin:.2em 0 .6em}
+.mini{background:#11161a;border:1px solid var(--borda);border-radius:12px;padding:12px 14px;margin:14px 0}
+.mini h3{margin:.1em 0 .4em}
+.mq{margin:12px 0 16px}
+.mq p{margin:.2em 0 .5em;font-weight:600}
+.mq .op{display:block;width:100%;text-align:left;margin:6px 0;background:var(--cartao)}
+.mq .op.certa{background:#16291e;border-color:var(--certo)}
+.mq .op.errada{background:#2e1c1b;border-color:var(--alerta)}
+.mq .fb{display:none;margin-top:6px;padding:8px 12px;border-radius:8px;font-size:.95rem}
+.mq .fb.on{display:block}
+.mq .fb.ok{background:#16291e;border-left:5px solid var(--certo)}
+.mq .fb.no{background:#2e1c1b;border-left:5px solid var(--alerta)}
+.revisado{display:block;background:var(--cartao);border:1px solid var(--borda);border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600}
+.revisado input{transform:scale(1.4);margin-right:8px}
+.barra-leitura{position:sticky;top:0;z-index:20;background:#0e1114;border-bottom:1px solid var(--borda);padding:6px 12px;font-size:.85rem;color:var(--suave)}
+.barra-leitura .trilho{height:8px;background:#26302a;border-radius:99px;overflow:hidden;margin-top:4px}
+.barra-leitura .enche{height:100%;width:0;background:linear-gradient(90deg,var(--musgo),var(--sinal))}
+.fim{text-align:center;padding:20px;border:2px dashed var(--sinal);border-radius:16px;margin:30px 0}
+.fim button{font-size:1.1rem;margin:6px}
+.acamp.feito circle{fill:#2b3a2a}
+</style></head><body>
+<div class="barra-leitura"><span id="lido">Você já leu 0% do caderno</span><div class="trilho"><div class="enche" id="enche"></div></div></div>
+<header class="topo"><span class="selo">RUMO AO CUME · GEOGRAFIA · 7º ANO</span>
+<h1>🗺️ Caderno da Trilha</h1><p>Resumo de revisão das 3 últimas provas, para o simulado trimestral.</p>
+<svg class="montanha" viewBox="0 0 760 300" role="img" aria-label="Montanha com a trilha dos acampamentos até o cume">
+<polygon points="0,300 230,150 330,205 520,40 600,70 760,300" fill="#26302a"/>
+<polygon points="520,40 560,58 545,75 522,62 500,72 488,62" fill="#eef3f0" opacity=".9"/>
+<polygon points="0,300 140,215 260,300" fill="#1f2823"/>
+<path d="M40,290 C90,270 100,255 110,250 S220,215 270,200 S380,170 420,150 S520,110 560,95 S590,62 600,48" fill="none" stroke="#ffd23f" stroke-width="3" stroke-dasharray="7 7" opacity=".85"/>
+<g class="acamp" id="montanha-a0"><circle cx="110" cy="250" r="17" fill="#1c2125" stroke="#6fcf7a" stroke-width="3"/><text x="110" y="256" text-anchor="middle" font-size="17">⛺</text><text x="110" y="286" text-anchor="middle" font-size="13" fill="#6fcf7a" font-family="Trebuchet MS">Acamp. 1</text></g><g class="acamp" id="montanha-a1"><circle cx="270" cy="200" r="17" fill="#1c2125" stroke="#f4a259" stroke-width="3"/><text x="270" y="206" text-anchor="middle" font-size="17">⛺</text><text x="270" y="236" text-anchor="middle" font-size="13" fill="#f4a259" font-family="Trebuchet MS">Acamp. 2</text></g><g class="acamp" id="montanha-a2"><circle cx="420" cy="150" r="17" fill="#1c2125" stroke="#5bc0eb" stroke-width="3"/><text x="420" y="156" text-anchor="middle" font-size="17">⛺</text><text x="420" y="186" text-anchor="middle" font-size="13" fill="#5bc0eb" font-family="Trebuchet MS">Acamp. 3</text></g>
+<g id="montanha-cume"><text x="606" y="40" font-size="30">🚩</text><text x="650" y="62" font-size="14" fill="#ffd23f" font-family="Trebuchet MS">Cume = Simulado</text></g>
+</svg></header>
+<main class="miolo">
+<div class="painel"><span id="salvoEm">💾 Seu progresso é salvo automaticamente neste aparelho.</span>
+<span class="bts"><button class="bt-pequeno" onclick="exportar()">📥 Exportar</button><button class="bt-pequeno" onclick="importar()">📤 Importar</button><button class="bt-pequeno" onclick="zerar()">🗑️ Zerar</button><a class="botao bt-pequeno" href="index.html">🏠 Base</a></span></div>
+<div class="cartao"><h3 style="margin-top:0">🥾 Como subir</h3>
+<p>A trilha tem <b>3 acampamentos</b>, um para cada prova. Em cada um: leia as regras, vire os cartões, guarde as dicas, fuja das pegadinhas e faça o <b>teste do acampamento</b>. No fim do caderno, clique em <b>“✅ Li o resumo até o fim”</b> para destravar o <b>Ataque ao Cume</b> (o simulado de 40 questões).</p>
+<div class="menu-ac"><a href="#ac0" style="--cor:#6fcf7a">⛺ 1. Domínios e regiões do IBGE</a><a href="#ac1" style="--cor:#f4a259">⛺ 2. Complexos regionais</a><a href="#ac2" style="--cor:#5bc0eb">⛺ 3. População e trabalho</a></div></div>
+
+<section class="acampamento" id="ac0" style="--cor:#6fcf7a">
+  <div class="ac-cabeca"><span class="ac-num">⛺ Acampamento 1</span><h2>Domínios morfoclimáticos e regiões do IBGE</h2>
+  <p class="ac-prova">📅 Prova de 11/06 · Cap. 6 — Domínios morfoclimáticos · Cap. 7 — Regiões do IBGE</p></div>
+  <div class="ac-corpo">
+    <p class="ac-intro">Primeiro acampamento: as paisagens naturais do Brasil e a divisão oficial em 5 regiões.</p>
+    <div class="regras"><div class="regra"><h4>Domínio morfoclimático</h4><p>Grande área que junta <b>relevo, solos, clima e vegetação</b>, analisados de forma integrada.</p><p>Conceito do geógrafo <b>Aziz Ab'Saber</b>. São <b>6 domínios</b>, com <b>faixas de transição</b> entre eles (nenhum termina de repente).</p></div><div class="regra"><h4>Amazônico e Cerrados</h4><p><b>Amazônico</b>: clima equatorial, rios volumosos. Matas: <b>igapó</b> (alagada quase o ano todo), <b>várzea</b> (alaga nas cheias), <b>terra firme</b> (não alaga, maiores árvores).</p><p><b>Cerrados</b>: clima tropical com estação seca e chuvosa, solo ácido, árvores de tronco retorcido. A <b>calagem</b> (calcário) corrige a acidez; hoje o Centro-Oeste é o maior produtor de soja.</p></div><div class="regra"><h4>Mares de Morros e Caatingas</h4><p><b>Mares de Morros</b>: morros arredondados, <b>Mata Atlântica</b>. É o domínio <b>mais devastado</b> (colonização, cana, café, grandes cidades) e o de mais deslizamentos.</p><p><b>Caatingas</b>: clima <b>semiárido</b>, plantas secas e espinhosas. Problemas: concentração de terras e desertificação. Irrigação em <b>Petrolina (PE) e Juazeiro (BA)</b> com água do Rio São Francisco.</p></div><div class="regra"><h4>Araucárias e Pradarias</h4><p>Os <b>dois únicos subtropicais</b> (os outros 4 são intertropicais).</p><p><b>Araucárias</b>: pinheiro-do-paraná, erva-mate; explorado por madeireiras.</p><p><b>Pradarias</b> (pampas, campanha gaúcha): coxilhas, campos para pecuária; solo arenoso sofre <b>arenização</b>.</p></div><div class="regra"><h4>Regiões do IBGE</h4><p><b>Região</b> = área com características comuns. O <b>IBGE</b> fez a divisão oficial em <b>1988</b>: <b>5 macrorregiões</b>, respeitando os limites dos estados.</p><p>Serve para analisar dados, planejar políticas públicas e direcionar investimentos.</p></div><div class="regra"><h4>As 5 regiões em uma olhada</h4><ul><li><b>Norte</b>: maior território, pouca gente; extrativismo; Manaus e Belém</li><li><b>Nordeste</b>: mais estados (9); Zona da Mata, Agreste, Sertão, Meio-Norte</li><li><b>Centro-Oeste</b>: agronegócio, Cerrado, Pantanal</li><li><b>Sudeste</b>: mais populosa, urbanizada e industrializada; tecnopolos</li><li><b>Sul</b>: menor território, subtropical, imigração europeia, minifúndios</li></ul></div></div>
+    <h3>🃏 Cartões de memória</h3><p class="suave">Tente responder antes de virar.</p><div class="flips"><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Os 4 elementos de um domínio<small>toque para virar</small></span><span class="vs">Relevo, solos, clima e vegetação</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Domínio mais devastado<small>toque para virar</small></span><span class="vs">Mares de Morros (Mata Atlântica)</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Domínios subtropicais<small>toque para virar</small></span><span class="vs">Araucárias e Pradarias</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Sub-regiões de transição do Nordeste<small>toque para virar</small></span><span class="vs">Agreste e Meio-Norte</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Região com mais estados<small>toque para virar</small></span><span class="vs">Nordeste (9)</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Tocantins é de qual região?<small>toque para virar</small></span><span class="vs">Norte (saiu de Goiás em 1988)</span></button></div>
+    <div class="caixa-dica"><h3>💡 Dicas de guia de montanha</h3><ul><li>Domínio (cap. 6) é natureza; região do IBGE (cap. 7) é divisão política, por estados inteiros.</li><li>Grave os “recordes”: Norte = maior território; Sudeste = mais gente; Nordeste = mais estados; Sul = menor território.</li><li>Ligue cada domínio a uma palavra-chave: igapó (Amazônico), calagem (Cerrados), deslizamentos (Mares de Morros), arenização (Pradarias), semiárido (Caatingas).</li><li>Tecnopolos do Sudeste: São José dos Campos (aeroespacial), São Carlos (nanotecnologia) e Campinas (telecomunicações).</li></ul></div>
+    <div class="caixa-alerta"><h3>⚠️ Pegadinhas da trilha</h3><ul><li>O domínio mais devastado é o dos Mares de Morros, <b>não</b> a Amazônia.</li><li>Calagem corrige a <b>acidez</b> do solo; não é irrigação.</li><li>Tocantins é da região <b>Norte</b>, mesmo tendo saído de Goiás.</li><li>Sertão é a maior sub-região do Nordeste; as de <b>transição</b> são Agreste e Meio-Norte.</li><li>Mata de igapó alaga quase o ano todo; a de terra firme não alaga.</li></ul></div>
+    <div class="mini" id="mini0"></div>
+    <label class="revisado"><input type="checkbox" id="rev0" onchange="marcarRevisado(0,this.checked)"> ✅ Revisei o Acampamento 1</label>
+  </div>
+</section>
+<section class="acampamento" id="ac1" style="--cor:#f4a259">
+  <div class="ac-cabeca"><span class="ac-num">⛺ Acampamento 2</span><h2>Regiões geoeconômicas (complexos regionais)</h2>
+  <p class="ac-prova">📅 Prova de 09/07 · Cap. 8 — Regiões geoeconômicas + texto complementar Os Quatro Brasis</p></div>
+  <div class="ac-corpo">
+    <p class="ac-intro">Segundo acampamento: outro jeito de dividir o Brasil, olhando a economia e a história.</p>
+    <div class="regras"><div class="regra"><h4>O que são</h4><p><b>Regiões geoeconômicas</b> = <b>complexos regionais</b>. Proposta de <b>Pedro Pinchas Geiger</b>, em <b>1967</b>.</p><p>Levam em conta fatores históricos, culturais, físicos e econômicos (industrialização a partir de 1930).</p><span class='formula'>Amazônia &nbsp;|&nbsp; Nordeste &nbsp;|&nbsp; Centro-Sul</span></div><div class="regra"><h4>A diferença que mais cai</h4><p><b>IBGE</b>: 5 macrorregiões, <b>respeita</b> os limites dos estados.</p><p><b>Geiger</b>: 3 complexos, <b>não respeita</b> os estados: um estado pode ficar dividido.</p><p>Ex.: Mato Grosso (parte Amazônia, parte Centro-Sul); norte de Minas Gerais no complexo Nordeste.</p></div><div class="regra"><h4>Complexo Amazônia</h4><p>O <b>maior</b> complexo, mas o de <b>menor população</b> (foi o que mais cresceu em população nos últimos anos).</p><p>É <b>maior que a região Norte</b>: inclui o oeste do Maranhão e o centro-norte do Mato Grosso. Economia: extrativismo vegetal; fronteiras agrícolas avançam com desmatamento.</p></div><div class="regra"><h4>Ciclos da borracha</h4><ul><li><b>1º ciclo: 1879–1912</b>, Revolução Industrial</li><li><b>2º ciclo: 1942–1945</b>, 2ª Guerra (EUA precisavam de borracha)</li></ul><p>Não trouxe desenvolvimento para a região: só <b>Manaus e Belém</b> cresceram e a riqueza ficou com a elite delas.</p></div><div class="regra"><h4>Centro-Sul e Nordeste</h4><p><b>Centro-Sul</b>: mais desenvolvido e industrializado, o <b>mais populoso</b>; São Paulo e Rio de Janeiro. Áreas como Goiás e oeste da Bahia entraram pela agropecuária de alta tecnologia.</p><p><b>Nordeste</b>: colonização antiga, população no litoral. Em 1930 <b>não recebeu indústrias</b> e virou mão de obra para o Centro-Sul.</p></div><div class="regra"><h4>Os Quatro Brasis</h4><p><b>Milton Santos e Ana Clara Torres Ribeiro, 1979</b>, conforme o meio técnico-científico-informacional.</p><p>Região Amazônica &nbsp;|&nbsp; Região Nordeste &nbsp;|&nbsp; Região Centro-Oeste &nbsp;|&nbsp; <b>Região Concentrada</b> (MG, SP, RJ, ES, PR, SC, RS: maiores indústrias e finanças)</p></div></div>
+    <h3>🃏 Cartões de memória</h3><p class="suave">Tente responder antes de virar.</p><div class="flips"><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Quem criou os complexos regionais?<small>toque para virar</small></span><span class="vs">Pedro Pinchas Geiger (1967)</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">IBGE × Geiger: quantas regiões?<small>toque para virar</small></span><span class="vs">IBGE 5 · Geiger 3</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Norte de Minas Gerais fica em qual complexo?<small>toque para virar</small></span><span class="vs">Nordeste</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Complexo maior × mais populoso<small>toque para virar</small></span><span class="vs">Maior: Amazônia · Mais populoso: Centro-Sul</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">1º e 2º ciclos da borracha<small>toque para virar</small></span><span class="vs">1879–1912 e 1942–1945</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Quatro Brasis<small>toque para virar</small></span><span class="vs">Milton Santos e Ana Clara Torres Ribeiro (1979)</span></button></div>
+    <div class="caixa-dica"><h3>💡 Dicas de guia de montanha</h3><ul><li>Monte a tabela dos “pais” das divisões: Ab'Saber = domínios; IBGE = 5 regiões; Geiger = 3 complexos; Milton Santos = Quatro Brasis.</li><li>Se a questão falar de um estado “dividido”, a resposta é a divisão de Geiger.</li><li>Complexo Amazônia > região Norte: lembre do oeste do Maranhão e do centro-norte do Mato Grosso.</li><li>Borracha: 1º ciclo com a Revolução Industrial; 2º ciclo com a 2ª Guerra.</li></ul></div>
+    <div class="caixa-alerta"><h3>⚠️ Pegadinhas da trilha</h3><ul><li>Geiger <b>não</b> respeita os limites dos estados; o IBGE respeita.</li><li>Amazônia é o <b>maior</b> complexo, mas o <b>mais populoso</b> é o Centro-Sul.</li><li>Norte de Minas: Sudeste no IBGE, mas <b>Nordeste</b> em Geiger.</li><li>Os Quatro Brasis (1979) não são os 3 complexos de Geiger (1967).</li><li>A borracha <b>não</b> desenvolveu a Amazônia inteira.</li></ul></div>
+    <div class="mini" id="mini1"></div>
+    <label class="revisado"><input type="checkbox" id="rev1" onchange="marcarRevisado(1,this.checked)"> ✅ Revisei o Acampamento 2</label>
+  </div>
+</section>
+<section class="acampamento" id="ac2" style="--cor:#5bc0eb">
+  <div class="ac-cabeca"><span class="ac-num">⛺ Acampamento 3</span><h2>População, estrutura etária e trabalho</h2>
+  <p class="ac-prova">📅 Prova dos cap. 13 a 15 · Cap. 13 a 15 — População, estrutura etária e trabalho</p></div>
+  <div class="ac-corpo">
+    <p class="ac-intro">Último acampamento antes do cume: quantas pessoas, onde vivem, como crescem e como trabalham.</p>
+    <div class="regras"><div class="regra"><h4>Populoso × povoado</h4><p><b>População absoluta</b> = total de habitantes (muita gente = <b>populoso</b>).</p><span class='formula'>Densidade demográfica = população ÷ área</span><p>Muita gente por km² = <b>povoado</b>. O Brasil é populoso, mas pouco povoado.</p></div><div class="regra"><h4>Distribuição</h4><p><b>Vazios demográficos</b>: áreas com pouquíssima gente (desertos, áreas geladas, florestas densas).</p><p>No Brasil, <b>mais de 80%</b> vive no Nordeste, Sudeste e Sul, perto do litoral: a colonização começou no litoral.</p></div><div class="regra"><h4>Crescimento da população</h4><span class='formula'>Crescimento vegetativo = natalidade − mortalidade</span><p>Saldo migratório = imigração − emigração. Crescimento total = vegetativo + saldo migratório.</p><p><b>Fecundidade</b> = média de filhos por mulher (15 a 49 anos); vem caindo.</p></div><div class="regra"><h4>Pirâmide etária</h4><p>Base = crianças e jovens &nbsp;|&nbsp; corpo = adultos &nbsp;|&nbsp; topo = idosos.</p><p>Base larga = natalidade alta (país jovem, subdesenvolvido). Base estreita e topo largo = muitos idosos (país desenvolvido).</p><p><b>Transição demográfica</b>: primeiro cai a mortalidade, depois a natalidade.</p></div><div class="regra"><h4>Censo e envelhecimento</h4><p><b>Censo</b>: pesquisa do <b>IBGE</b>, mais ou menos a cada 10 anos. 1872: menos de 10 milhões; 2022: cerca de 203 milhões.</p><p>O Brasil está <b>envelhecendo</b>: pressão sobre a previdência. <b>Estatuto do Idoso</b> (2003): 60 anos ou mais.</p></div><div class="regra"><h4>Trabalho</h4><p><b>PEA</b>: em idade de trabalhar, trabalhando ou procurando emprego. <b>PEI</b>: crianças e aposentados.</p><p>Setores: <b>primário</b> (campo, extrativismo) &nbsp;|&nbsp; <b>secundário</b> (indústria) &nbsp;|&nbsp; <b>terciário</b> (comércio e serviços: onde está a maioria no Brasil).</p><p><b>Informal</b>: sem carteira, sem direitos da CLT. Trabalho só a partir dos 18; aprendiz a partir dos 14.</p></div></div>
+    <h3>🃏 Cartões de memória</h3><p class="suave">Tente responder antes de virar.</p><div class="flips"><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Densidade demográfica<small>toque para virar</small></span><span class="vs">População ÷ área (hab/km²)</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Natalidade 18‰ e mortalidade 8‰<small>toque para virar</small></span><span class="vs">Crescimento vegetativo de +10‰</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Base da pirâmide larga<small>toque para virar</small></span><span class="vs">Natalidade alta, muitas crianças</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">O que cai primeiro na transição?<small>toque para virar</small></span><span class="vs">A mortalidade</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">PEA<small>toque para virar</small></span><span class="vs">Quem trabalha ou procura emprego</span></button><button class="flip" onclick="this.classList.toggle('virado')" aria-label="Cartão: toque para virar"><span class="fr">Vendedor de loja: qual setor?<small>toque para virar</small></span><span class="vs">Terciário</span></button></div>
+    <div class="caixa-dica"><h3>💡 Dicas de guia de montanha</h3><ul><li>Populoso fala do <b>total</b>; povoado fala da <b>concentração</b>.</li><li>Na pirâmide, leia de baixo para cima: crianças, adultos, idosos.</li><li>Para classificar um trabalho: tira da natureza = primário; transforma = secundário; vende ou presta serviço = terciário.</li><li>Envelhecimento = menos gente pagando a previdência e mais aposentados recebendo.</li></ul></div>
+    <div class="caixa-alerta"><h3>⚠️ Pegadinhas da trilha</h3><ul><li>Populoso ≠ povoado: o Brasil tem muita gente, mas baixa densidade.</li><li>Crescimento vegetativo não inclui migração; o crescimento total sim.</li><li>Natalidade é por mil habitantes; fecundidade é filhos por mulher.</li><li>Na transição demográfica a mortalidade cai <b>antes</b> da natalidade.</li><li>Quem procura emprego também faz parte da PEA.</li></ul></div>
+    <div class="mini" id="mini2"></div>
+    <label class="revisado"><input type="checkbox" id="rev2" onchange="marcarRevisado(2,this.checked)"> ✅ Revisei o Acampamento 3</label>
+  </div>
+</section>
+<div class="fim"><h2>🏁 Fim do Caderno da Trilha</h2><p id="fimTxt"></p>
+<button id="btLi" class="bt-musgo" onclick="liAteOFim()" disabled>✅ Li o resumo até o fim</button>
+<button id="btProx" class="bt-forte" onclick="irSimulado()" disabled>🏔️ Ir para o Ataque ao Cume →</button></div>
+</main>
+<div class="rodape">Rumo ao Cume · Revisão para o simulado trimestral · feito para o jovem aprendiz</div>
+<div class="modal-fundo" id="modalFundo"><div class="modal"><h3 id="modalTit"></h3><div id="modalTxt"></div><div class="bts" id="modalBts"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+var MEM = {};
+function lerChave(k){ try{ var v = localStorage.getItem(k); if(v!==null) return JSON.parse(v); }catch(e){}
+  if(MEM[k]) { try{ return JSON.parse(MEM[k]); }catch(e){} } return null; }
+function gravarChave(k,obj){ var t = JSON.stringify(obj); MEM[k]=t; try{ localStorage.setItem(k,t); }catch(e){} }
+function apagarChave(k){ delete MEM[k]; try{ localStorage.removeItem(k); }catch(e){} }
+function dataBR(iso){ if(!iso) return '—'; var d=new Date(iso); function z(n){return (n<10?'0':'')+n;}
+  return z(d.getDate())+'/'+z(d.getMonth()+1)+'/'+d.getFullYear()+' às '+z(d.getHours())+':'+z(d.getMinutes()); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function modal(titulo, html, botoes){
+  var f=document.getElementById('modalFundo');
+  document.getElementById('modalTit').innerHTML=titulo; document.getElementById('modalTxt').innerHTML=html;
+  var b=document.getElementById('modalBts'); b.innerHTML='';
+  (botoes||[{t:'Entendi',c:'bt-forte'}]).forEach(function(bt){ var e=document.createElement('button'); e.textContent=bt.t; e.className=bt.c||'';
+    e.onclick=function(){ if(!bt.manter) f.classList.remove('on'); if(bt.f) bt.f(); }; b.appendChild(e); });
+  f.classList.add('on');
+}
+function toast(t){ var e=document.getElementById('toast'); e.textContent=t; e.classList.add('on'); setTimeout(function(){e.classList.remove('on');},2200); }
+function baixarJSON(nome,obj){ try{ var blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}); var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=nome; document.body.appendChild(a); a.click(); a.remove(); toast('📥 Arquivo baixado'); }catch(e){ modal('Ops','Não consegui baixar o arquivo neste aparelho.'); } }
+function abrirArquivo(cb){ var i=document.createElement('input'); i.type='file'; i.accept='.json,application/json';
+  i.onchange=function(){ var f=i.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ try{ cb(JSON.parse(r.result)); }catch(e){ modal('Ops','Esse arquivo não parece ser um progresso salvo deste kit.'); } }; r.readAsText(f); };
+  i.click(); }
+
+var D = {"slug": "revisao_edros_geografia_7ano", "acampamentos": [{"mini": [{"q": "Qual domínio morfoclimático é o mais devastado do Brasil?", "ops": ["Amazônico", "Pradarias", "Mares de Morros", "Caatingas"], "c": 2, "exp": "Mares de Morros: foi onde começou a colonização (cana e café) e onde estão as maiores cidades.", "dicas": ["A Amazônia sofre desmatamento, mas o mais devastado é o dos Mares de Morros.", "As Pradarias sofrem com arenização, mas não são as mais devastadas.", "", "A Caatinga sofre desertificação, mas o recordista de devastação é outro."]}, {"q": "Qual região do IBGE tem o MAIOR território?", "ops": ["Norte", "Sudeste", "Sul", "Nordeste"], "c": 0, "exp": "O Norte ocupa cerca de 45% do país, mas tem pouca população.", "dicas": ["", "O Sudeste é o mais populoso, não o maior.", "O Sul é a MENOR região.", "O Nordeste tem mais estados (9), não o maior território."]}, {"q": "O que é a calagem, usada no Cerrado?", "ops": ["Misturar calcário ao solo para corrigir a acidez", "Irrigar com água do Rio São Francisco", "Retirar o látex das seringueiras", "Queimar a vegetação para plantar"], "c": 0, "exp": "É misturar calcário ao solo para corrigir a acidez e permitir a agricultura.", "dicas": ["", "Isso é a irrigação de Petrolina e Juazeiro, na Caatinga.", "Isso é extrativismo da Amazônia.", "Queimada não é calagem."]}]}, {"mini": [{"q": "Quantos complexos regionais existem na divisão de Geiger?", "ops": ["3", "6", "5", "4"], "c": 0, "exp": "São 3: Amazônia, Nordeste e Centro-Sul.", "dicas": ["", "6 são os domínios morfoclimáticos.", "5 são as macrorregiões do IBGE.", "4 são os Quatro Brasis de Milton Santos."]}, {"q": "Qual é o complexo regional mais populoso?", "ops": ["Centro-Sul", "Região Concentrada", "Nordeste", "Amazônia"], "c": 0, "exp": "O Centro-Sul, onde ficam São Paulo e Rio de Janeiro.", "dicas": ["", "Região Concentrada é dos Quatro Brasis, não um complexo de Geiger.", "O Nordeste tem muita gente no litoral, mas não é o mais populoso.", "A Amazônia é o maior em área, mas o de menor população."]}, {"q": "No complexo de Geiger, o norte de Minas Gerais fica:", "ops": ["No complexo Nordeste", "No complexo Amazônia", "No complexo Centro-Sul", "Em nenhum complexo"], "c": 0, "exp": "No complexo Nordeste, porque se parece com o Sertão (clima semiárido, solos pobres).", "dicas": ["", "O complexo Amazônia inclui o Norte, o oeste do Maranhão e o centro-norte do Mato Grosso, não o norte de Minas.", "O resto de Minas está no Centro-Sul, mas o norte foi para o Nordeste.", "Todo o território está em algum complexo."]}]}, {"mini": [{"q": "O Brasil é:", "ops": ["Populoso, mas pouco povoado", "Pouco populoso e pouco povoado", "Pouco populoso e muito povoado", "Populoso e muito povoado"], "c": 0, "exp": "Tem muita gente no total (populoso), mas um território enorme, então a densidade é baixa (pouco povoado).", "dicas": ["", "O Brasil tem mais de 200 milhões de habitantes.", "Esse é o caso de Malta, um país pequeno.", "O território grande deixa a densidade baixa."]}, {"q": "Natalidade 15‰ e mortalidade 9‰. O crescimento vegetativo é:", "ops": ["+6‰ (positivo)", "−6‰ (negativo)", "+24‰ (positivo)", "Nulo"], "c": 0, "exp": "15 − 9 = 6‰, positivo: nasce mais gente do que morre.", "dicas": ["", "A natalidade é maior, então o resultado é positivo.", "Não se soma: é natalidade menos mortalidade.", "Só é nulo quando natalidade e mortalidade são iguais."]}, {"q": "Uma operária de fábrica de sapatos trabalha no setor:", "ops": ["Secundário", "Informal", "Primário", "Terciário"], "c": 0, "exp": "Secundário: a indústria transforma matéria-prima em produto.", "dicas": ["", "Informal não é setor; é trabalho sem carteira.", "O primário tira recursos da natureza (agricultura, pecuária, extrativismo).", "O terciário é comércio e serviços."]}]}]};
+var CH = D.slug+'_resumo_v1', CHT = D.slug+'_trilha_v1';
+var E = lerChave(CH) || {mini:{}, revisado:{}, rolagemMax:0, concluido:false, concluidoEm:null, salvoEm:null};
+if(!E.mini) E.mini={}; if(!E.revisado) E.revisado={};
+function salvar(){ E.salvoEm=new Date().toISOString(); gravarChave(CH,E); document.getElementById('salvoEm').textContent='💾 Salvo em '+dataBR(E.salvoEm); }
+function desenharMini(){
+  D.acampamentos.forEach(function(a,i){
+    var h='<h3>🧗 Teste do acampamento</h3><p class="suave">Clique na resposta. Se errar, leia a explicação e tente de novo.</p>';
+    a.mini.forEach(function(q,j){
+      var id='a'+i+'q'+j, r=E.mini[id];
+      h+='<div class="mq" id="'+id+'"><p>'+(j+1)+'. '+q.q+'</p>';
+      q.ops.forEach(function(op,k){
+        var cls='op'; if(r && r.certo && k===q.c) cls+=' certa'; else if(r && r.erradas && r.erradas.indexOf(k)>=0) cls+=' errada';
+        h+='<button class="'+cls+'" onclick="responderMini('+i+','+j+','+k+')">'+String.fromCharCode(97+k)+') '+op+'</button>';
+      });
+      var fb=''; if(r && r.certo) fb='<div class="fb on ok">✔ Isso! '+q.exp+'</div>'; else if(r && r.ultErr!=null) fb='<div class="fb on no">✘ Ainda não. '+q.dicas[r.ultErr]+'</div>'; else fb='<div class="fb"></div>';
+      h+=fb+'</div>';
+    });
+    document.getElementById('mini'+i).innerHTML=h;
+    document.getElementById('rev'+i).checked=!!E.revisado[i];
+  });
+  pintarMontanha();
+}
+function responderMini(i,j,k){
+  var q=D.acampamentos[i].mini[j], id='a'+i+'q'+j, r=E.mini[id]||{erradas:[],certo:false,primeira:null};
+  if(r.certo) return;
+  if(k===q.c){ r.certo=true; if(r.primeira===null) r.primeira=true; r.ultErr=null; }
+  else { if(r.erradas.indexOf(k)<0) r.erradas.push(k); if(r.primeira===null) r.primeira=false; r.ultErr=k; }
+  E.mini[id]=r; salvar(); desenharMini();
+}
+function marcarRevisado(i,v){ E.revisado[i]=v; salvar(); pintarMontanha(); }
+function pintarMontanha(){ D.acampamentos.forEach(function(a,i){ var g=document.getElementById('montanha-a'+i); if(g) g.classList.toggle('feito',!!E.revisado[i]); }); }
+function rolagem(){
+  var h=document.documentElement, total=h.scrollHeight-window.innerHeight;
+  var pct= total<=0 ? 100 : Math.min(100, Math.round((window.scrollY||h.scrollTop)/total*100));
+  document.getElementById('enche').style.width=pct+'%';
+  if(pct>E.rolagemMax){ E.rolagemMax=pct; salvar(); }
+  document.getElementById('lido').textContent='Você já leu '+E.rolagemMax+'% do caderno';
+  atualizarFim();
+}
+function atualizarFim(){
+  var b=document.getElementById('btLi'), p=document.getElementById('btProx');
+  if(E.concluido){ b.disabled=true; b.textContent='✅ Resumo concluído em '+dataBR(E.concluidoEm); p.disabled=false; document.getElementById('fimTxt').textContent='Muito bem! O Ataque ao Cume (Simulado) está destravado.'; }
+  else if(E.rolagemMax>=90){ b.disabled=false; document.getElementById('fimTxt').textContent='Chegou ao fim! Clique no botão para registrar.'; }
+  else { b.disabled=true; document.getElementById('fimTxt').textContent='O botão acende quando você chegar ao fim do caderno (agora: '+E.rolagemMax+'%).'; }
+}
+function liAteOFim(){ if(E.rolagemMax<90) return; E.concluido=true; E.concluidoEm=new Date().toISOString(); salvar(); atualizarFim(); toast('🏕️ Resumo concluído! Simulado destravado.'); }
+function irSimulado(){ location.href='simulado.html'; }
+function exportar(){ baixarJSON(D.slug+'_resumo.json',E); }
+function importar(){ abrirArquivo(function(o){ if(!o||typeof o!=='object'||!('mini' in o)) { modal('Ops','Esse arquivo não é do Caderno da Trilha.'); return; }
+  var c=E.concluido, ce=E.concluidoEm; E=o; if(c && !E.concluido){E.concluido=true;E.concluidoEm=ce;} salvar(); desenharMini(); atualizarFim(); toast('📤 Progresso importado'); }); }
+function zerar(){ modal('Zerar o Caderno da Trilha?','Apaga as respostas dos testes e as marcações deste material. (Se o resumo já foi concluído, o Simulado continua destravado.)',
+  [{t:'Cancelar'},{t:'Sim, zerar',c:'bt-forte',f:function(){ E={mini:{},revisado:{},rolagemMax:0,concluido:E.concluido,concluidoEm:E.concluidoEm,salvoEm:null}; salvar(); desenharMini(); rolagem(); }}]); }
+window.addEventListener('scroll',rolagem); window.addEventListener('resize',rolagem);
+desenharMini(); if(E.salvoEm) document.getElementById('salvoEm').textContent='💾 Salvo em '+dataBR(E.salvoEm); rolagem();
+</script></body></html>
